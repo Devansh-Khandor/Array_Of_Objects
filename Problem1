@@ -1,0 +1,60 @@
+//Write a program to print the name, salary and date of joining of n employees in a company.
+//Use array of objects.
+
+
+import java.util.*;
+class Problem1_AOO
+{
+    public static void main()
+    {
+        Scanner ob=new Scanner(System.in);
+        System.out.println("ENTER THE NUMBER OF EMPLOYEES WHOSE INFORMATION HAS TO BE PRINTED");
+        int n=ob.nextInt();
+        p1 arr[]=new p1[n];
+        String name;
+        double salary;
+        int date;
+        for(int i=0;i<n;i++)
+        {
+            System.out.println("FOR EMPLOYEE "+(i+1)+": ");
+            System.out.println("------------------------");
+            System.out.print("ENTER NAME: ");
+            name=ob.next();
+            System.out.println();
+            System.out.print("ENTER SALARY: ");
+            salary=ob.nextDouble();
+            System.out.println();
+            System.out.print("ENTER DATE: ");
+            date=ob.nextInt();
+            System.out.println();
+            arr[i]=new p1(name,salary,date);
+        }
+        for(int i=0;i<n;i++)
+        {
+            System.out.println("INFORMATION FOR "+(i+1)+": ");
+            System.out.println("---------------------------");
+            arr[i].display();
+        }
+    }
+}
+
+
+class p1
+{
+    String name;
+    double salary;
+    int date;
+    public p1(String name,double salary,int date)
+    {
+        this.name=name;
+        this.salary=salary;
+        this.date=date;
+    }
+    
+    public void display()
+    {
+        System.out.println("NAME: "+name);
+        System.out.println("SALARY: "+salary);
+        System.out.println("DATE: "+date);
+    }
+}
