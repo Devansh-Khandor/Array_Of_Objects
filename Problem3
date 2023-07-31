@@ -1,0 +1,30 @@
+//Write a program to calculate the average height of all the students of a class. The number of students and their heights in a class are entered by user.
+
+
+import java.util.*;
+class Problem3_AOO
+{
+    double h;
+    
+    public Problem3_AOO(double h)
+    {
+        this.h=h;
+    }
+
+    static void main()
+    {
+        Scanner ob=new Scanner(System.in);
+        System.out.println("Enter the number of students in the class.");
+        int n=ob.nextInt();
+        double finalh=0;
+        Problem3_AOO arr[]=new Problem3_AOO[n];
+        for(int i=0;i<n;i++)
+        {
+            System.out.print("ENTER HEIGHT FOR STUDENT "+(i+1)+": ");
+            double h=ob.nextInt();
+            finalh=finalh+h;
+            arr[i]=new Problem3_AOO(h);
+        }
+        System.out.println("Average height is: "+(finalh)/n);
+    }
+}
