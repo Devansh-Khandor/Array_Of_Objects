@@ -1,0 +1,212 @@
+/*
+ Lets create a bank account. Create a class named 'BankAccount' with the following data members
+1 - Name of depositor
+2 - Address of depositor
+3 - Type of account
+4 - Balance in account
+5 - Number of transactions
+Class 'BankAccount' has a method for each of the following 1 - Generate a unique account number for each depositor
+For first depositor, account number will be BA1000, for second depositor it will be BA1001 and so on
+2 - Display information and balance of depositor
+3 - Deposit more amount in balance of any depositor
+4 - Withdraw some amount from balance deposited
+5 - Change address of depositor
+After creating the class, do the following operations
+1 - Enter the information (name, address, type of account, balance) of the depositors. Number of depositors are to be entered by user.
+2 - Print the information of any depositor.
+3 - Add some amount to the account of any depositor and then display final informaion of that depositor
+4 - Remove some amount from the account of any depositor and then display final informaion of that depositor
+5 - Change the address of any depositor and then display the final information of that depositor
+6 - Randomly repeat these processes for some other bank accounts and after that print the total number of transactions.
+ */
+
+import java.util.*;
+class BankAccount
+{
+    Scanner ob=new Scanner(System.in);
+    double deposit,withdraw;
+    String newadd;
+    int n;
+    int acc=1000;
+    BankAccount2 arr[];
+    public void main()
+    {
+        int ch,choice;
+        do
+        {
+            System.out.println("OPTIONS:");
+            System.out.println("1.CREATE ACCOUNTS");
+            System.out.println("2.DISPLAY INFORMATION AND BALANCE");
+            System.out.println("3.DEPOSIT MONEY");
+            System.out.println("4.WITHDRAW MONEY");
+            System.out.println("5.CHANGE ADDRESS");
+            ch=ob.nextInt();
+            switch(ch)
+            {
+                case 1:
+                    create();
+                    gen();
+                    System.out.println("1.REDO  2.EXIT");
+                    choice=ob.nextInt();
+                    break;
+                case 2:
+                    for(int i=0;i<n;i++)
+                    {
+                        System.out.println("INFORMATION FOR "+(i+1)+": ");
+                        System.out.println("---------------------------");
+                        arr[i].display();
+                    }
+                    System.out.println("1.REDO  2.EXIT");
+                    choice=ob.nextInt();
+                    break;
+                case 3:
+                    deposit();
+                    System.out.println("1.REDO  2.EXIT");
+                    choice=ob.nextInt();
+                    break;
+                case 4:
+                    withdraw();
+                    System.out.println("1.REDO  2.EXIT");
+                    choice=ob.nextInt();
+                    break;
+                case 5:
+                    change();
+                    System.out.println("1.REDO  2.EXIT");
+                    choice=ob.nextInt();
+                    break;    
+                default:
+                    System.out.println("WRONG CHOICE");
+                    System.out.println("1.REDO  2.EXIT");
+                    choice=ob.nextInt();
+            }
+        }while(choice==1);
+    }
+    
+    public void create()
+    {
+        System.out.println("ENTER THE NUMBER OF USERS");
+        n=ob.nextInt();
+        String na,a,t;
+        arr = new BankAccount2[n];
+        for(int i=0;i<n;i++)
+        {
+            System.out.println("ENTER INFORMATION FOR USER "+(i+1)+": ");
+            System.out.println("--------------------------------------");
+            System.out.print("NAME: ");
+            na=ob.next();
+            System.out.print("ADDRESS: ");
+            a=ob.next();
+            System.out.print("TYPE OF ACCOUNT: ");
+            t=ob.next();
+            arr[i]=new BankAccount2(na,a,t,0,0,"BA");
+        }
+    }
+    public void deposit()
+    {
+        System.out.println("ENTER THE ACCOUNT NAME WHERE THE AMOUNT IS TO BE DEPOSITED");
+        String names=ob.next();
+        //boolean ans=false;
+        int c=0;
+        for(int i=0;i<n;i++)
+        {
+            if(arr[i].name.equals(names))
+            {
+                System.out.println("ENTER THE AMOUNT TO BE DEPOSITED");
+                deposit=ob.nextDouble();         
+                arr[i].bal=arr[i].bal+deposit;
+                System.out.println("AMOUNT DEPOSITED");
+                arr[i].no=arr[i].no+1;
+            }
+        }
+        /*if(ans==true)
+        {
+            System.out.println("ENTER THE AMOUNT TO BE DEPOSITED");
+            deposit=ob.nextDouble();         
+            arr[c].bal=arr[c].bal+deposit;
+        }
+        else
+        {
+            System.out.println("ACCOUNT NOT FOUND");
+        }*/
+    }
+    
+    public void withdraw()
+    {
+        System.out.println("ENTER THE ACCOUNT NAME FROM WHERE THE AMOUNT IS TO BE WITHDRAWN");
+        String names=ob.next();
+        //boolean ans=false;
+        int c=0;
+        for(int i=0;i<n;i++)
+        {
+            if(arr[i].name.equals(names))
+            {
+                System.out.println("ENTER THE AMOUNT TO BE WITHDRAWN");
+                withdraw=ob.nextDouble();         
+                if(arr[i].bal>withdraw)
+                {
+                    arr[i].bal=arr[i].bal-withdraw;
+                    arr[i].no=arr[i].no+1;
+                }
+                else
+                {
+                    System.out.println("INSUFFICIENT MONEY!DEPOSIT MONEY FIRST");
+                }
+            }
+        }
+    }
+    
+    public void change()
+    {
+        System.out.println("ENTER THE ACCOUNT NAME WHOSE ADDRESS HAS TO BE CHANGED");
+        String names=ob.next();
+        //boolean ans=false;
+        for(int i=0;i<n;i++)
+        {
+            if(arr[i].name.equals(names))
+            {
+                System.out.println("ENTER THE NEW ADDRESS");
+                newadd=ob.next();         
+                arr[i].add=newadd;
+            }
+        }
+    }
+    
+    public void gen()
+    {
+        
+        for(int i=0;i<n;i++)
+        {
+            arr[i].accno=arr[i].accno+acc;
+            acc=acc+1;
+        }
+    }
+}
+
+
+class BankAccount2
+{
+    String name;
+    String add;
+    String type;
+    double bal;
+    int no;
+    String accno;
+    public BankAccount2(String name,String add,String type,double bal,int no,String accno)
+    {
+        this.name=name;
+        this.add=add;
+        this.type=type;
+        this.bal=bal;
+        this.no=no;
+        this.accno=accno;
+    }
+    public void display()
+    {
+        System.out.println("NAME: "+name);
+        System.out.println("ACCOUNT NUMBER: "+accno);
+        System.out.println("ADDRESS: "+add);
+        System.out.println("TYPE OF ACCOUNT: "+type);
+        System.out.println("BALANCE: "+bal);
+        System.out.println("NUMBER OF TRANSACTIONS: "+no);
+    }
+}
